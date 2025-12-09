@@ -2078,24 +2078,51 @@ def start_background_services():
 # ==========================
 # 🚀 MAIN ENTRY POINT - FIXED VERSION``
 # ==========================
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        # load_initial_data()
+# if __name__ == '__main__':
+#     with app.app_context():
+#         db.create_all()
+#         # load_initial_data()
 
+#     from services.inventory_service import InventoryService
+#     from services.quotation_service import QuotationService
+#     from services.procurement_service import ProcurementService
+
+#     inventory_service = InventoryService(db.session)
+#     quotation_service = QuotationService(db.session, inventory_service)
+#     procurement_service = ProcurementService(db.session, inventory_service)
+
+    
+#     start_background_services()
+
+#     # Run Flask app without reloader to avoid threading issues
+#     # app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+#     port = int(os.environ.get("PORT", 5000))
+#     debug = os.environ.get("FLASK_DEBUG", "False").lower() == "true"
+#     app.run(debug=debug, host='0.0.0.0', port=port, use_reloader=False)
+
+# ==========================
+# 🚀 APPLICATION INITIALIZATION FOR PRODUCTION (Railway/Gunicorn)
+# ==========================
+
+# Initialize DB and services when the module is loaded (required for Gunicorn)
+with app.app_context():
+    db.create_all()
     from services.inventory_service import InventoryService
     from services.quotation_service import QuotationService
     from services.procurement_service import ProcurementService
 
+    # Initialize global services
     inventory_service = InventoryService(db.session)
     quotation_service = QuotationService(db.session, inventory_service)
     procurement_service = ProcurementService(db.session, inventory_service)
+    log.info("✅ Core services initialized successfully.")
 
-    
-    start_background_services()
+    # Start background email monitor (only once, not in reloader)
+    if os.environ.get("FLASK_DEBUG", "False").lower() != "true":
+        start_background_services()
 
-    # Run Flask app without reloader to avoid threading issues
-    # app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+# Keep this for local development (optional)
+if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     debug = os.environ.get("FLASK_DEBUG", "False").lower() == "true"
     app.run(debug=debug, host='0.0.0.0', port=port, use_reloader=False)
