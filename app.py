@@ -3,10 +3,10 @@ import os
 import re
 import time
 # import csv
-# import base64
+
 import logging
 import tempfile
-# import openpyxl
+
 import requests
 import datetime
 from datetime import timedelta
@@ -2042,25 +2042,7 @@ def get_customer_notifications():
     })
 
 
-# def run_outlook_monitor_wrapper():
-#     pythoncom.CoInitialize()
-#     try:
-#         with app.app_context():
-#             outlook = win32com.client.Dispatch("Outlook.Application")
-#             log.info("📧 Outlook monitor started - checking for quotation emails with PDF OCR support...")
-#             while True:
-#                 try:
-#                     from services.outlook_monitor import poll_and_process_emails
-#                     processed_count = poll_and_process_emails(outlook, db.session, quotation_service, inventory_service)
-#                     if processed_count > 0:
-#                         log.info(f"✅ Processed {processed_count} new quotation emails (including PDF attachments with OCR)")
-#                 except Exception as e:
-#                     log.error(f"❌ Outlook monitor processing error: {e}")
-#                 time.sleep(Config.CHECK_INTERVAL)
-#     except Exception as e:
-#         log.error(f"❌ Outlook monitor thread error: {e}", exc_info=True)
-#     finally:
-#         pythoncom.CoUninitialize()
+
 
 
 def run_graph_email_monitor():
@@ -2099,7 +2081,7 @@ def start_background_services():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-        load_initial_data()
+        # load_initial_data()
 
     from services.inventory_service import InventoryService
     from services.quotation_service import QuotationService
