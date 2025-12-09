@@ -432,9 +432,9 @@ psycopg2-binary==2.9.10 # if using PostgreSQL (optional)
 #############################################
 # EMAIL MONITOR (MICROSOFT GRAPH)
 #############################################
-msal==1.31.0
+msal==1.31.1
 requests-oauthlib==2.0.0
-O365==2.1.0             # optional: extra Graph wrapper
+O365==2.1.0       # optional: extra Graph wrapper
 
 #############################################
 # PDF PARSING
