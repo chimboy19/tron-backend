@@ -47,7 +47,7 @@ log = logging.getLogger(__name__)
 # ==========================
 app = Flask(__name__)
 app.config.from_object(Config)
-CORS(app, origins=["https://tokyo-tron-demo.netlify.app/"])
+CORS(app, origins=["https://tokyo-tron-demo.netlify.app"])
 db.init_app(app)
 jwt = JWTManager(app)
 migrate = Migrate(app, db)
