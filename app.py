@@ -5,7 +5,6 @@ import time
 import csv
 import base64
 import logging
-import pythoncom
 import tempfile
 import openpyxl
 import requests
@@ -24,7 +23,6 @@ from flask import Flask, request, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity ,get_jwt
 from sqlalchemy import func
-import win32com.client
 import httpx
 from pdf2image import convert_from_bytes
 from werkzeug.utils import secure_filename
