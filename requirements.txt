@@ -467,3 +467,7 @@ html2text==2025.4.15
 # Task queues / async (only if needed)
 celery==5.5.3
 kombu==5.5.4
+
+
+gunicorn==23.0.0
+httpx==0.28.1
